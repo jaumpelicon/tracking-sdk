@@ -19,7 +19,7 @@ class ClickInterceptor extends StatelessWidget {
 
   void _handleClick(BuildContext context, PointerDownEvent event) {
     final hitTestResult = HitTestResult();
-    WidgetsBinding.instance.hitTest(hitTestResult, event.position);
+    WidgetsBinding.instance.hitTestInView(hitTestResult, event.position, event.viewId);
 
     for (final entry in hitTestResult.path) {
       final target = entry.target;

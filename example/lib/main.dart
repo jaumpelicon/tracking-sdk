@@ -7,7 +7,12 @@ import 'package:tracking_sdk/interceptors/route_observer.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  Tracker.configure(debugMode: true);
+  final analytics = FirebaseAnalytics.instance;
+  Tracker.configure(
+    debugMode: true,
+    logEventFunction: analytics.logEvent,
+  );
+
   runApp(MyApp());
 }
 
