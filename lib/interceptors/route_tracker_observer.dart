@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tracking_sdk/tracker.dart';
 
-class GoRouterTrackerObserver extends NavigatorObserver {
+class RouteTrackerObserver extends NavigatorObserver {
   @override
   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
     _log(route);
