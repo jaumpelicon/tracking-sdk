@@ -3,20 +3,26 @@ import 'package:flutter/material.dart';
 class Tracker {
   static bool debug = false;
   static String currentRoute = 'unknown';
-  static late void Function({
+  static late Future<void> Function({
     required String name,
     Map<String, Object>? parameters,
   }) logEvent;
 
-  static void configure({
+  static Future<void> configure({
     bool debugMode = false,
-    required void Function({
+    required Future<void> Function({
       required String name,
       Map<String, Object>? parameters,
     }) logEventFunction,
-  }) {
+  }) async {
     debug = debugMode;
     logEvent = logEventFunction;
+    try {
+      await logEvent(name: 'sdk_init');
+      debugPrint('Success initialize sdk');
+    } catch (e) {
+      debugPrint('Erro ao logar evento de inicialização: $e');
+    }
   }
 
   static void setCurrentRoute(String routeName) {
@@ -30,7 +36,7 @@ class Tracker {
     currentRoute = routeName;
   }
 
-  static void logClickEvent(String key, BuildContext context) {
+  static Future<void> logClickEvent(String key, BuildContext context) async {
     final route = ModalRoute.of(context)?.settings.name ?? currentRoute;
 
     if (debug) {
@@ -38,7 +44,7 @@ class Tracker {
       debugPrint('📍 Tela: $route');
     }
 
-    logEvent(
+    await logEvent(
       name: 'widget_click',
       parameters: {
         'key': key,
