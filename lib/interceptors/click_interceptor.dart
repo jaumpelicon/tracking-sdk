@@ -25,23 +25,39 @@ class ClickInterceptor extends StatelessWidget {
       final target = entry.target;
       if (target is RenderObject) {
         final debugCreator = target.debugCreator;
-        if (debugCreator != null && debugCreator is DebugCreator) {
+        if (debugCreator is DebugCreator) {
           final element = debugCreator.element;
-          final key = element.widget.key;
 
+          // Tenta pegar a key do próprio elemento
+          final key = _findClosestValueKey(element);
           if (key != null) {
-            String keyStr;
-            // Verificar o tipo específico de key para extrair o valor correto
-            if (key is ValueKey) {
-              keyStr = key.value.toString();
-            } else {
-              keyStr = key.toString();
-            }
+            final keyStr = key.value.toString();
+            debugPrint('🔥 Clicked ValueKey: $keyStr');
             Tracker.logClickEvent(keyStr, context);
-            break;
+            return;
           }
         }
       }
     }
+  }
+
+  ValueKey? _findClosestValueKey(Element element) {
+    Widget currentWidget = element.widget;
+
+    if (currentWidget.key is ValueKey) {
+      return currentWidget.key as ValueKey;
+    }
+
+    ValueKey? foundKey;
+    element.visitAncestorElements((ancestor) {
+      final key = ancestor.widget.key;
+      if (key is ValueKey) {
+        foundKey = key;
+        return false; // parar no primeiro que encontrar
+      }
+      return true; // continua procurando
+    });
+
+    return foundKey;
   }
 }
