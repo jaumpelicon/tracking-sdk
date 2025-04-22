@@ -30,7 +30,13 @@ class ClickInterceptor extends StatelessWidget {
           final key = element.widget.key;
 
           if (key != null) {
-            final keyStr = key.toString();
+            String keyStr;
+            // Verificar o tipo específico de key para extrair o valor correto
+            if (key is ValueKey) {
+              keyStr = key.value.toString();
+            } else {
+              keyStr = key.toString();
+            }
             Tracker.logClickEvent(keyStr, context);
             break;
           }
