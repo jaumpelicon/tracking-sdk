@@ -1,0 +1,34 @@
+# Exclui lockfile (não necessário em packages)
+pubspec.lock
+
+# Exclui arquivos de configuração local
+*.iml
+*.idea/
+*.vscode/
+*.DS_Store
+.packages
+
+# Exclui arquivos temporários
+*.log
+*.tmp
+*.swp
+
+# Exclui testes locais (se você não quiser incluí-los)
+test/
+
+# Exclui artefatos de build e cache
+build/
+.dart_tool/
+.melos_tool/
+
+# Exclui arquivos de preview ou exemplos temporários
+example/
+screenshots/
+docs/
+
+# Exclui backups e configs pessoais
+*.bak
+*.orig
+
+# Exclui o analysis options se não for personalizado
+analysis_options.yaml

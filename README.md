@@ -73,9 +73,7 @@ class MyAppGoRouter extends StatelessWidget {
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return TrackingListener(
-      analytics: analytics,
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(title: const Text('Home')),
         body: Center(
           child: ElevatedButton(
@@ -86,11 +84,12 @@ class HomePage extends StatelessWidget {
             child: const Text('Purchase'),
           ),
         ),
-      ),
-    );
+      );
   }
 }
 ```
+
+⚠️ Certifique-se de ter configurado o Firebase no projeto antes de usar.
 
 📚 Documentation
 See the [GitHub repository](https://github.com/jaumpelicon/tracking-sdk/) for source code and future updates.
