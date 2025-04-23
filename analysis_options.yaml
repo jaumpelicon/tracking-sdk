@@ -1,3 +1,9 @@
+linter:
+  rules:
+    prefer_const_constructors: true
+    avoid_print: true
+    public_member_api_docs: true
+
 analyzer:
   exclude:
     - example/**.dart
