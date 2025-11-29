@@ -6,19 +6,27 @@ class Tracker {
   static late Future<void> Function({
     required String name,
     Map<String, Object>? parameters,
-  }) logEvent;
+  }) logScreenEvent;
+  static late Future<void> Function({
+    required String name,
+    Map<String, Object>? parameters,
+  }) logButtonEvent;
 
   static Future<void> configure({
     bool debugMode = false,
     required Future<void> Function({
       required String name,
       Map<String, Object>? parameters,
-    }) logEventFunction,
+    }) logScreenEventFunction,
+    required Future<void> Function({
+      required String name,
+      Map<String, Object>? parameters,
+    }) logButtonClickEvent,
   }) async {
-    debug = debugMode;
-    logEvent = logEventFunction;
     try {
-      await logEvent(name: 'sdk_init');
+      debug = debugMode;
+      logScreenEvent = logScreenEventFunction;
+      logButtonEvent = logButtonClickEvent;
       debugPrint('Success initialize sdk');
     } catch (e) {
       debugPrint('Erro ao logar evento de inicialização: $e');
@@ -27,7 +35,7 @@ class Tracker {
 
   static void setCurrentRoute(String routeName) {
     if (debug) debugPrint('📍 Navegou para: $routeName');
-    logEvent(
+    logScreenEvent(
       name: 'navigate for: ${routeName}',
       parameters: {
         'path': routeName,
@@ -44,7 +52,7 @@ class Tracker {
       debugPrint('📍 Tela: $route');
     }
 
-    await logEvent(
+    await logButtonEvent(
       name: 'click on: $key',
       parameters: {
         'key': key,
