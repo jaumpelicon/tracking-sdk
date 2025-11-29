@@ -28,7 +28,7 @@ class Tracker {
   static void setCurrentRoute(String routeName) {
     if (debug) debugPrint('📍 Navegou para: $routeName');
     logEvent(
-      name: 'screen_view',
+      name: 'navigate for: ${routeName}',
       parameters: {
         'path': routeName,
       },
@@ -45,7 +45,7 @@ class Tracker {
     }
 
     await logEvent(
-      name: 'widget_click',
+      name: 'click on: $key',
       parameters: {
         'key': key,
         'screen': route,

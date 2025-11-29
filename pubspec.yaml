@@ -1,6 +1,6 @@
 name: tracking_sdk
 description: A lightweight tracking SDK for Flutter using Firebase Analytics.
-version: 0.1.0
+version: 0.1.1
 
 homepage: https://github.com/jaumpelicon/tracking-sdk
 repository: https://github.com/jaumpelicon/tracking-sdk
